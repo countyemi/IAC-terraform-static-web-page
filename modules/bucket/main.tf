@@ -13,6 +13,10 @@ resource "aws_s3_bucket_public_access_block" "make_private" {
   restrict_public_buckets = true
 }
 
+resource "aws_cloudfront_origin_access_identity" "s3_identity" {
+  comment = "Origin access identity for web_bucket"
+}
+
 resource "aws_s3_bucket_policy" "web_bucket_policy" {
   bucket = aws_s3_bucket.web_bucket.id
 
@@ -34,7 +38,8 @@ resource "aws_s3_bucket_policy" "web_bucket_policy" {
 resource "aws_s3_object" "index" {
   bucket = var.bucket_name
   key    = "index.html"
-  source = "${path.module}/index.html"  
+  source = "${path.module}/..files/index.html"  
+  
 
 }
 

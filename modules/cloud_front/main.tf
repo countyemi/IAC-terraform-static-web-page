@@ -1,22 +1,25 @@
-resource "aws_cloudfront_origin_access_identity" "s3_identity" {
-  comment = "Allow CloudFront to access S3 bucket"
+module "bucket" {
+  source = "../bucket"
+  bucket_name = var.bucket_name
+ 
 }
 
-resource "aws_cloudfront_distribution" "website_distribution" {
+resource "aws_cloudfront_distribution" "web_bucket_distribution" {
+
   origin {
-    domain_name = module.s3_bucket.s3_bucket_domain_name
-    origin_id   = "S3-${module.s3_bucket.s3_bucket_domain_name}"
+    domain_name = module.bucket.s3_bucket_domain_name
+    origin_id   = "S3-${var.bucket_name}"
 
     s3_origin_config {
-      origin_access_identity = aws_cloudfront_origin_access_identity.s3_identity.cloudfront_access_identity_path
+      origin_access_identity = module.bucket.aws_cloudfront_oai
     }
   }
 
   enabled             = true
-  default_root_object = var.index_document
+  default_root_object = "index.html"
 
   default_cache_behavior {
-    target_origin_id       = "S3-${module.s3_bucket.s3_bucket_domain_name}"
+    target_origin_id       = "S3-${module.bucket.s3_bucket_domain_name}"
     viewer_protocol_policy = "redirect-to-https"
 
     allowed_methods  = ["GET", "HEAD", "OPTIONS"]
@@ -46,5 +49,5 @@ resource "aws_cloudfront_distribution" "website_distribution" {
     }
   }
 
-  tags = var.tags
+
 }
