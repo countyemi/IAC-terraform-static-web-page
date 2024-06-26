@@ -19,7 +19,7 @@ resource "aws_cloudfront_distribution" "web_bucket_distribution" {
   default_root_object = "index.html"
 
   default_cache_behavior {
-    target_origin_id       = "S3-${module.bucket.s3_bucket_domain_name}"
+    target_origin_id       = "S3-${var.bucket_name}"
     viewer_protocol_policy = "redirect-to-https"
 
     allowed_methods  = ["GET", "HEAD", "OPTIONS"]

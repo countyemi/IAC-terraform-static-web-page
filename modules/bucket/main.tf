@@ -14,7 +14,7 @@ resource "aws_s3_bucket_public_access_block" "make_private" {
 }
 
 resource "aws_cloudfront_origin_access_identity" "s3_identity" {
-  comment = "Origin access identity for web_bucket"
+  comment = "Origin access identity for ${var.bucket_name}"
 }
 
 resource "aws_s3_bucket_policy" "web_bucket_policy" {
@@ -36,17 +36,19 @@ resource "aws_s3_bucket_policy" "web_bucket_policy" {
 }
 
 resource "aws_s3_object" "index" {
-  bucket = var.bucket_name
+  bucket = aws_s3_bucket.web_bucket.bucket
   key    = "index.html"
-  source = "${path.module}/..files/index.html"  
+  source = "${path.module}./index.html"  
+  content_type = "text/html"
   
 
 }
 
 resource "aws_s3_object" "error" {
-  bucket = var.bucket_name
+  bucket = aws_s3_bucket.web_bucket.bucket
   key    = "error.html"
-  source = "${path.module}/error.html"  
+  source = "${path.module}./error.html"  
+  content_type = "text/html"
 
 }
 
