@@ -22,6 +22,11 @@ module "cloud_front" {
  
 }
 
+module "api_gateway" {
+  source = "./modules/api_gateway"
+  cloudfront_url  = "https://${module.cloud_front.cloudfront_domain_name}"
+}
+
 # module "route53" {
 #   source = "./modules/route53"
 #   domain_name = var.domain_name
@@ -32,6 +37,3 @@ module "cloud_front" {
 #   source = "./modules/iam"
 # }
 
-# module "api_gateway" {
-#   source = "./modules/api_gateway"
-#}
