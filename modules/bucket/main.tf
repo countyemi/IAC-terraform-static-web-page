@@ -35,19 +35,19 @@ resource "aws_s3_bucket_policy" "web_bucket_policy" {
   })
 }
 
-resource "aws_s3_object" "index" {
+resource "aws_s3_object" "index_doc" {
   bucket = aws_s3_bucket.web_bucket.bucket
   key    = "index.html"
-  source = "${path.module}./index.html"  
+  source = "${path.module}/../../files/index.html"  
   content_type = "text/html"
   
 
 }
 
-resource "aws_s3_object" "error" {
+resource "aws_s3_object" "error_doc" {
   bucket = aws_s3_bucket.web_bucket.bucket
   key    = "error.html"
-  source = "${path.module}./error.html"  
+  source = "${path.module}/../../files/error.html"  
   content_type = "text/html"
 
 }

@@ -7,3 +7,9 @@ variable "bucket_name" {
   description = "The name of the S3 bucket for CloudFront origin."
   type        = string
 }
+
+
+# variable "ssl_cert" {
+#   description = "ssl certificate"
+#   type        = string
+# }
