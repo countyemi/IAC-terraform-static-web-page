@@ -60,7 +60,8 @@ The main.tf file defines the resources and policies for the bucket to deny publi
 
 ![clean up](https://github.com/countyemi/IAC-terraform-static-web-page/assets/11930705/70ba6086-4803-4980-8564-4255901cef07)
 
-
+<h1>END NOTE</h1>
+<p>Ensure to use the correct certificate arn in variables.tf file in the root directory before running the code. Mine will not work for you</p>
 
 
 
